@@ -7,7 +7,7 @@ function msg(texto){
 		navigator.notification.alert(
 				texto,  				// message
 				alertDismissed, // callback
-				'Aloo Copete',  // title
+				'Hito',  // title
 				'Listo!'        // buttonName
 		);
 	}
