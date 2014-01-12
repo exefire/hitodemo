@@ -104,7 +104,7 @@ function hit_now(id){
 		//console.log(lista_tiempos);
 		$("#tiempo" + id).html('Validado: ' + now);
 		$("#pulsador" + id).attr("onclick","");
-		$("#pulsador" + id).buttonMarkup({ icon: "forbidden" });
+		$("#pulsador" + id).buttonMarkup({ icon: "check" });
 	}
 	console.log(vuelos);
 }
@@ -157,7 +157,7 @@ $("#lista").live('pagebeforeshow', function() {
 	for(id=0;id<=4;id++){
 		$("#tiempo" + id).html('-');
 		$("#pulsador" + id).attr("onclick","hit_now('" + id + "')");
-		$("#pulsador" + id).buttonMarkup({ icon: "check" });
+		$("#pulsador" + id).buttonMarkup({ icon: "clock" });
 	}
 });
 
