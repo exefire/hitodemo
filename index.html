@@ -7,17 +7,144 @@
 <script type="text/javascript" charset="utf-8" src="jquery.mobile-1.2.0.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="main.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script src="http://debug.phonegap.com/target/target-script-min.js#hitodemo"></script>
+<!--<script src="http://debug.phonegap.com/target/target-script-min.js#hitodemo"></script>-->
 <meta charset="UTF-8">
 <link href="jquery.mobile-1.2.0.min.css" rel="stylesheet" type="text/css">
 <link href="estilo.css" rel="stylesheet" type="text/css">
 </head>
 
-<body><div data-role="header">
-    <h1>T&iacute;tulo</h1>
+<body>
+
+
+<div data-role="page" id="inicio">
+
+	<div data-role="header" data-position="fixed" data-theme="b">
+		<h1>Hito Demo</h1>
+	</div>
+
+	<div role="main" class="ui-content">
+		<p>I'm first in the source order so I'm shown as the page.</p>
+		<p>View internal page called <a href="#lista">bar</a></p>
+    <p><a href="#pagina2">pagina2</a>
+	</div><!-- /content -->
+
+
 </div>
-<p>
-  <input type="button" value="Button" onClick="msg('Hola Mundo!')">
-</p>
+
+<div data-role="page" id="lista">
+
+	<div data-role="header" data-position="fixed" data-theme="b">
+  	<a href="#inicio" data-icon="arrow-l">Volver</a>
+		<h1>Check Demo</h1>
+ 
+	</div>
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-split-icon="plus" data-theme="c" data-split-theme="b" data-inset="true">
+     <li class="ui-field-contain">
+            <label for="vuelo">Vuelo:</label>
+            <input name="vuelo" id="vuelo" value="" data-clear-btn="true" type="text">
+        </li>
+    <li>
+    	<a href="#lista">
+        <h3>Llegada Grupo</h3>
+        <p id="tiempo0">Validado: </p>
+    	</a>
+    	<a href="#lista" onClick="hit_now(0)" data-theme="b" data-icon="check" id="pulsador0">texto1</a>
+    </li>
+    <li>
+    	<a href="#lista">
+        <h3>Env&iacute;o 1<sup>er</sup> Carro</h3>
+        <p id="tiempo1">Validado: </p>
+    	</a>
+    	<a href="#lista" onClick="hit_now(1)" data-theme="b" data-icon="check" id="pulsador1">texto1</a>
+    </li>
+    <li>
+    	<a href="#lista">
+        <h3>Env&iacute;o &Uacute;ltimo Carro</h3>
+        <p id="tiempo2">Validado: </p>
+    	</a>
+    	<a href="#lista" onClick="hit_now(2)" data-theme="b" data-icon="check" id="pulsador2">texto1</a>
+    </li>
+    <li>
+    	<a href="#lista">
+        <h3>Llegada 1<sup>er</sup> Carro</h3>
+        <p id="tiempo3">Validado: </p>
+    	</a>
+    	<a href="#lista" onClick="hit_now(3)" data-theme="b" data-icon="check" id="pulsador3">texto1</a>
+    </li>
+    <li>
+    	<a href="#lista">
+        <h3>Llegada 2<sup>o</sup> Carro</h3>
+        <p id="tiempo4">Validado: </p>
+    	</a>
+    	<a href="#lista" onClick="hit_now(4)" data-theme="b" data-icon="check" id="pulsador4">texto1</a>
+    </li>
+  </ul>
+	</div>
+  
+  
+  <div data-role="footer" data-position="fixed">
+    <h1>Fixed Footer!</h1>
+  </div>
+</div>
+
+
+
+
+<div data-role="page" id="pagina2">
+
+	<div data-role="header" data-position="fixed" data-theme="b">
+  	<a href="#inicio" data-icon="arrow-l">Volver</a>
+		<h1>Pagina 2</h1>
+	</div>
+
+	<div role="main" class="ui-content">
+		<form>
+    <ul data-role="listview" data-inset="true">
+        <li class="ui-field-contain">
+            <label for="name2">Text Input:</label>
+            <input name="name2" id="name2" value="" data-clear-btn="true" type="text">
+        </li>
+        <li class="ui-field-contain">
+            <label for="textarea2">Textarea:</label>
+        <textarea cols="40" rows="8" name="textarea2" id="textarea2"></textarea>
+        </li>
+        <li class="ui-field-contain">
+            <label for="flip2">Flip switch:</label>
+            <select name="flip2" id="flip2" data-role="slider">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </li>
+        <li class="ui-field-contain">
+            <label for="slider2">Slider:</label>
+            <input name="slider2" id="slider2" value="0" min="0" max="100" data-highlight="true" type="range">
+        </li>
+        <li class="ui-field-contain">
+            <label for="select-choice-1" class="select">Choose shipping method:</label>
+            <select name="select-choice-1" id="select-choice-1">
+                <option value="standard">Standard: 7 day</option>
+                <option value="rush">Rush: 3 days</option>
+                <option value="express">Express: next day</option>
+                <option value="overnight">Overnight</option>
+            </select>
+        </li>
+        <li class="ui-body ui-body-b">
+            <fieldset class="ui-grid-a">
+                    <div class="ui-block-a"><button type="submit" class="ui-btn ui-corner-all ui-btn-a">Cancel</button></div>
+                    <div class="ui-block-b"><button type="submit" class="ui-btn ui-corner-all ui-btn-a">Submit</button></div>
+            </fieldset>
+        </li>
+    </ul>
+</form>
+	</div><!-- /content -->
+
+
+</div>
+
+
+
+
 </body>
 </html>
