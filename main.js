@@ -14,7 +14,6 @@ function onDeviceReady() {
 									'&version=' + device.version;
 }
 
-
 function msg(texto){
 	if(typeof(navigator.notification)=='undefined'){
 		alert(texto);
@@ -61,16 +60,16 @@ function ahora(){
 
 function enviar(id,valor){
 	var vuelo = $("#vuelo").val();
-	url = url_master + "?app=hitodemo&vuelo=" + vuelo + "&id="+id + "&valor="+valor + datos_equipo;
+	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos) + datos_equipo;
 	
 	$.ajax({
 		url: url,
-		beforeSend: function() { $.mobile.showPageLoadingMsg(); }, //Show spinner
-		complete: function() { $.mobile.hidePageLoadingMsg(); }, //Hide spinner
+		beforeSend: function() { estado('enviando información...'); }, //Show spinner: $.mobile.showPageLoadingMsg();
+		complete: function() { estado('conectividad satisfactoria'); }, //Hide spinner: $.mobile.hidePageLoadingMsg();
 		dataType: "jsonp",
 		async: true,
 		success: function (result) {
-			console.log(result);
+			//console.log(result);
 			//var nombre = result['nombre'];
 			//precio_despacho = result['precio1'];
 			//var texto = 'Sector: ' + nombre;
@@ -85,25 +84,88 @@ function enviar(id,valor){
 	});
 }
 
+function estado(text){
+	$("#estado").text(text);
+}
+
 function hit_now(id){
 	if($("#vuelo").val()==''){
 		$("#vuelo").focus();
 		msg('Debe ingresar el vuelo');
 	}else{
 		var now = ahora();
-		enviar(id,now);
+		if(typeof(vuelos[id_vuelo])=='undefined'){
+			vuelos[id_vuelo] = {};
+		}
+		vuelos[id_vuelo]['vuelo'] = $("#vuelo").val();
+		vuelos[id_vuelo]['hito' + id] = now;
 		lista_tiempos[id] = now;
-		console.log(lista_tiempos);
+		enviar(id,now);
+		//console.log(lista_tiempos);
 		$("#tiempo" + id).html('Validado: ' + now);
-		//$('#pulsador' + id).attr("data-theme", "e").removeClass("ui-btn-up-e").addClass("ui-btn-up-c");	
 		$("#pulsador" + id).attr("onclick","");
 		$("#pulsador" + id).html('');
 	}
+	console.log(vuelos);
 }
 
+function crea_tabla(){
+	var matriz = [];
+	// Borra el contenido
+	$("#tabla_vuelos").html('');
+	// Recorre el arreglo vuelos
+	$.each(vuelos, function( key, value ) {
+		// Escribe en html cada linea
+		cadena = '<li><a href="#" onclick="ver_vuelo('+key+')">'+ value['vuelo'] + '</a></li>';
+		// guarda la linea en una matriz temporal.
+		matriz.push(cadena);
+	});
+	// Escribe la tabla al revés
+	for(i=matriz.length-1;i>-1;i--){
+		$("#tabla_vuelos").append(matriz[i]);
+	}
+	$('#tabla_vuelos').listview('refresh');
+}
+
+function ver_vuelo(id){
+	//msg('Vuelo: ' + vuelos[id]['vuelo']);
+	$("#detalles_vuelo").html('');
+	$("#detalles_vuelo").append('<h2>' + vuelos[id]['vuelo'] + '</h2>');
+	$.each(lista_hits, function( hito, value ) {
+		if(typeof(vuelos[id]['hito' + hito])=='undefined'){
+			$("#detalles_vuelo").append('<h4>' + lista_hits[hito] + '</h4>');
+			$("#detalles_vuelo").append('<blockquote><p>-</p></blockquote>');
+		}else{
+			$("#detalles_vuelo").append('<h4>' + lista_hits[hito] + '</h4>');
+			$("#detalles_vuelo").append('<blockquote><p>' + vuelos[id]['hito' + hito] + '</p></blockquote>');			
+		}
+	});
+	$.mobile.changePage("#detalles");
+}
+	
+
+$("#inicio").live('pagebeforeshow', function() {
+	crea_tabla();
+});
+
+
+$("#lista").live('pagebeforeshow', function() {
+	$("#vuelo").val('');
+	id_vuelo++;
+	console.log('id_vuelo: ' + id_vuelo);
+	lista_tiempos = [];
+	for(id=0;id<=4;id++){
+		$("#tiempo" + id).html('Validado: ');
+		$("#pulsador" + id).attr("onclick","hit_now('" + id + "')");
+		$("#pulsador" + id).html('<span class="ui-btn-inner"><span class="ui-btn-text"></span><span data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="check" data-iconpos="notext" data-theme="b" title="" class="ui-btn ui-btn-up-b ui-shadow ui-btn-corner-all ui-btn-icon-notext"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span></span></span></span>');
+	}
+});
+
 var url_master = 'http://www.exefire.com/log/';
+var vuelos = {};
 var lista_tiempos = [];
 var lista_hits = [];
+var id_vuelo = 0;
 lista_hits[0] = 'Llegada Grupo';
 lista_hits[1] = 'Env&iacute;o 1<sup>er</sup> Carro';
 lista_hits[2] = 'Env&iacute;o &Uacute;ltimo Carro';
