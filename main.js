@@ -14,6 +14,11 @@ function onDeviceReady() {
 									'&version=' + device.version;
 }
 
+// No scroll elastico.
+$(document).bind('touchmove',function(e) {
+	e.preventDefault();
+});
+
 function msg(texto){
 	if(typeof(navigator.notification)=='undefined'){
 		alert(texto);
