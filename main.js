@@ -101,6 +101,8 @@ function hit_now(id){
 		var now = ahora();
 		if(typeof(vuelos[id_vuelo])=='undefined'){
 			vuelos[id_vuelo] = {};
+			$("#campo_vuelo").css('display','none');
+			$("#vuelo_txt").html('<blockquote><b>'+$("#vuelo").val()+'</b></blockquote>');
 		}
 		vuelos[id_vuelo]['vuelo'] = $("#vuelo").val();
 		vuelos[id_vuelo]['hito' + id] = now;
@@ -156,6 +158,8 @@ $("#inicio").live('pagebeforeshow', function() {
 
 $("#lista").live('pagebeforeshow', function() {
 	$("#vuelo").val('');
+	$("#campo_vuelo").css('display','block');
+	$("#vuelo_txt").html('');
 	id_vuelo++;
 	console.log('id_vuelo: ' + id_vuelo);
 	lista_tiempos = [];
