@@ -104,7 +104,7 @@ function hit_now(id){
 		//console.log(lista_tiempos);
 		$("#tiempo" + id).html('Validado: ' + now);
 		$("#pulsador" + id).attr("onclick","");
-		$("#pulsador" + id).html('');
+		$("#pulsador" + id).buttonMarkup({ icon: "forbidden" });
 	}
 	console.log(vuelos);
 }
@@ -155,9 +155,9 @@ $("#lista").live('pagebeforeshow', function() {
 	console.log('id_vuelo: ' + id_vuelo);
 	lista_tiempos = [];
 	for(id=0;id<=4;id++){
-		$("#tiempo" + id).html('Validado: ');
+		$("#tiempo" + id).html('-');
 		$("#pulsador" + id).attr("onclick","hit_now('" + id + "')");
-		$("#pulsador" + id).html('<span class="ui-btn-inner"><span class="ui-btn-text"></span><span data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="check" data-iconpos="notext" data-theme="b" title="" class="ui-btn ui-btn-up-b ui-shadow ui-btn-corner-all ui-btn-icon-notext"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span></span></span></span>');
+		$("#pulsador" + id).buttonMarkup({ icon: "check" });
 	}
 });
 
