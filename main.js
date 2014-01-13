@@ -14,10 +14,57 @@ function onDeviceReady() {
 									'&version=' + device.version;
 }
 
-// No scroll elastico.
-$(document).bind('touchmove',function(e) {
-	e.preventDefault();
-});
+// Elimina scroll elastico
+(function () {
+	/*
+	* A small script to disable elastic scrolling in Mobile Safari
+	*
+	* Bugs
+	* - If user is at top/bottom of page and tries to scroll up/down, it
+	* correctly disables further scrolling, but at the expense of not
+	* being able to scroll in the allowed direction either. Taking
+	* their finger off and then starting the scroll in the allowed
+	* direction works.
+	* - Boundaries are jittery (effect size depends on the force with which
+	* the user is scrolling)
+	* - Momentum scrolling is still elastic since element.scrollTop is not
+	* updated until the scroll completes
+	*
+	*/
+	 
+	// global variable holding start position of touch
+	var startScrollPos = 0;
+	 
+	// when user touches the page,
+	// update the start position with the position touched
+	document.body.addEventListener('touchstart', function (evt) {
+	startScrollPos = evt.touches[0].pageY;
+	});
+	 
+	// when the user scrolls the page,
+	// prevent scrolling if at top or bottom of page
+	document.body.addEventListener('touchmove', function (evt) {
+	var touchPos = evt.touches[0].pageY;
+	var bodyHeight = this.offsetHeight + 20; // add 20px for jQuery Mobile footer
+	var scrollPos = bodyHeight + this.scrollTop;
+	// if scrolled to the top of the page
+	// && trying to scroll higher
+	if (scrollPos <= bodyHeight && startScrollPos < touchPos) {
+	evt.preventDefault();
+	this.scrollTop = 0;
+	}
+	// if scrolled to the bottom of the page
+	// && trying to scroll lower
+	else if (scrollPos >= this.scrollHeight && startScrollPos > touchPos) {
+	evt.preventDefault();
+	this.scrollTop = bodyHeight;
+	}
+	// update the start position with the current touch position
+	startScrollPos = touchPos;
+	});
+})();
+
+
 
 function msg(texto){
 	if(typeof(navigator.notification)=='undefined'){
