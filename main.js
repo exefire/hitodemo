@@ -37,13 +37,13 @@ function onDeviceReady() {
 	 
 	// when user touches the page,
 	// update the start position with the position touched
-	document.body.addEventListener('touchstart', function (evt) {
+	document.addEventListener('touchstart', function (evt) {
 	startScrollPos = evt.touches[0].pageY;
 	});
 	 
 	// when the user scrolls the page,
 	// prevent scrolling if at top or bottom of page
-	document.body.addEventListener('touchmove', function (evt) {
+	document.addEventListener('touchmove', function (evt) {
 	var touchPos = evt.touches[0].pageY;
 	var bodyHeight = this.offsetHeight + 20; // add 20px for jQuery Mobile footer
 	var scrollPos = bodyHeight + this.scrollTop;
@@ -149,7 +149,7 @@ function hit_now(id){
 		if(typeof(vuelos[id_vuelo])=='undefined'){
 			vuelos[id_vuelo] = {};
 			$("#campo_vuelo").css('display','none');
-			$("#vuelo_txt").html('<blockquote><b>'+$("#vuelo").val()+'</b></blockquote>');
+			$("#vuelo_txt").html('<label>Vuelo</label><blockquote><b>'+$("#vuelo").val()+'</b></blockquote>');
 		}
 		vuelos[id_vuelo]['vuelo'] = $("#vuelo").val();
 		vuelos[id_vuelo]['hito' + id] = now;
