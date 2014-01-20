@@ -22,16 +22,17 @@ function posicion_ok(position){
 
 var lat = 0;
 var lon = 0;
-watchPosition();
+watchID = null;
 
 // device APIs are available
 var datos_equipo = '';
 function onDeviceReady() {
-		datos_equipo = '&model=' + device.model + 
-									'&cordova=' + device.cordova + 
-									'&platform=' + device.platform + 
-									'&uuid=' + device.uuid + 
-									'&version=' + device.version;
+	datos_equipo = '&model=' + device.model + 
+								'&cordova=' + device.cordova + 
+								'&platform=' + device.platform + 
+								'&uuid=' + device.uuid + 
+								'&version=' + device.version;
+	watchPosition();
 }
 
 
