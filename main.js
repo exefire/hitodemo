@@ -4,6 +4,26 @@
 //
 document.addEventListener("deviceready", onDeviceReady, false);
 
+function watchPosition() {
+	var options = { frequency: 1000 };
+	watchID = navigator.geolocation.watchPosition(posicion_ok, ErrorUbicacion, options);
+}
+function ErrorUbicacion(error) {
+	var texto = 'No se ha podido obtener la ubicación.';
+	msg(texto);
+	lat = 0;
+	lon = 0;
+}
+function posicion_ok(position){
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+	//msg('pos('+lat+','+lon+')');
+}
+
+var lat = 0;
+var lon = 0;
+watchPosition();
+
 // device APIs are available
 var datos_equipo = '';
 function onDeviceReady() {
@@ -61,7 +81,7 @@ function ahora(){
 
 function enviar(id,valor){
 	var vuelo = $("#vuelo").val();
-	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos) + datos_equipo;
+	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos)+ '&lat=' + lat + '&lon=' + lon + datos_equipo;
 	
 	$.ajax({
 		url: url,
