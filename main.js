@@ -180,11 +180,11 @@ $("#lista").live('pagebeforeshow', function() {
 	id_vuelo++;
 	console.log('id_vuelo: ' + id_vuelo);
 	lista_tiempos = [];
+	$('#lista1').html('<li class="ui-field-contain"><span id="vuelo_txt"></span><div id="campo_vuelo"><label for="vuelo">Vuelo:</label><input name="vuelo" id="vuelo" type="tel" value="" data-clear-btn="true"></div></li>');
 	for(id=0;id<=4;id++){
-		$("#tiempo" + id).html('-');
-		$("#pulsador" + id).attr("onclick","hit_now('" + id + "')");
-		$("#pulsador" + id).buttonMarkup({ icon: "clock" });
+		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now('+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
 	}
+	$('#lista1').listview('refresh');
 });
 
 var url_master = 'http://www.exefire.com/log/';
