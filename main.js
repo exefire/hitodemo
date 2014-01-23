@@ -110,27 +110,38 @@ function estado(text){
 	$("#estado").text(text);
 }
 
-function hit_now(id){
-	if($("#vuelo").val()==''){
-		$("#vuelo").focus();
+function hit_now(check,id){
+	if($("#vuelo" + check).val()==''){
+		$("#vuelo" + check).focus();
 		msg('Debe ingresar el vuelo');
 	}else{
+		var id_vuelo = $("#vuelo" + check).val()*1;
 		var now = ahora();
 		if(typeof(vuelos[id_vuelo])=='undefined'){
+			// No existe el vuelo en el cache
 			vuelos[id_vuelo] = {};
-			$("#campo_vuelo").css('display','none');
-			$("#vuelo_txt").html('<label>Vuelo</label><blockquote><b>'+$("#vuelo").val()+'</b></blockquote>');
 		}
-		vuelos[id_vuelo]['vuelo'] = $("#vuelo").val();
-		vuelos[id_vuelo]['hito' + id] = now;
-		lista_tiempos[id] = now;
-		enviar(id,now);
-		//console.log(lista_tiempos);
-		$("#tiempo" + id).html('Validado: ' + now);
-		$("#pulsador" + id).attr("onclick","");
-		$("#pulsador" + id).buttonMarkup({ icon: "check" });
+		if($("#campo_vuelo" + check).css('display')=='block'){
+			$("#campo_vuelo" + check).css('display','none');
+			$("#vuelo_txt" + check).html('<label>Vuelo</label><blockquote><b>'+id_vuelo+'</b></blockquote>');
+		}
+		if(typeof(vuelos[id_vuelo]['hito' + id])=='undefined'){
+			// Si no existe ese hito para este vuelo, lo crea
+			vuelos[id_vuelo]['vuelo'] = id_vuelo;
+			vuelos[id_vuelo]['hito' + id] = now;
+			lista_tiempos[id] = now;
+			enviar(id,now);
+			//console.log(lista_tiempos);
+			$("#tiempo" + id).html('Validado: ' + now);
+			$("#pulsador" + id).attr("onclick","");
+			$("#pulsador" + id).buttonMarkup({ icon: "check" });
+		}else{
+			$("#tiempo" + id).html('Inv&aacute;lido.');
+			$("#pulsador" + id).attr("onclick","");
+			$("#pulsador" + id).buttonMarkup({ icon: "check" });
+		}
+		
 	}
-	console.log(vuelos);
 }
 
 function crea_tabla(){
@@ -173,25 +184,28 @@ $("#inicio").live('pagebeforeshow', function() {
 });
 
 
-$("#lista").live('pagebeforeshow', function() {
-	$("#vuelo").val('');
-	$("#campo_vuelo").css('display','block');
-	$("#vuelo_txt").html('');
-	id_vuelo++;
-	console.log('id_vuelo: ' + id_vuelo);
+$("#check1").live('pagebeforeshow', function() {
 	lista_tiempos = [];
-	$('#lista1').html('<li class="ui-field-contain"><span id="vuelo_txt"></span><div id="campo_vuelo"><label for="vuelo">Vuelo:</label><input name="vuelo" id="vuelo" type="tel" value="" data-clear-btn="true"></div></li>');
-	for(id=0;id<=4;id++){
-		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now('+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
+	$('#lista1').html('<li class="ui-field-contain"><span id="vuelo_txt1"></span><div id="campo_vuelo1"><label for="vuelo1">Vuelo:</label><input name="vuelo1" id="vuelo1" type="tel" value="" data-clear-btn="true"></div></li>');
+	for(id=0;id<=2;id++){
+		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(1,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista1').listview('refresh');
+});
+
+$("#check2").live('pagebeforeshow', function() {
+	lista_tiempos = [];
+	$('#lista2').html('<li class="ui-field-contain"><span id="vuelo_txt2"></span><div id="campo_vuelo2"><label for="vuelo2">Vuelo:</label><input name="vuelo2" id="vuelo2" type="tel" value="" data-clear-btn="true"></div></li>');
+	for(id=3;id<=4;id++){
+		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
+	}
+	$('#lista2').listview('refresh');
 });
 
 var url_master = 'http://www.exefire.com/log/';
 var vuelos = {};
 var lista_tiempos = [];
 var lista_hits = [];
-var id_vuelo = 0;
 lista_hits[0] = 'Llegada Grupo';
 lista_hits[1] = 'Env&iacute;o 1<sup>er</sup> Carro';
 lista_hits[2] = 'Env&iacute;o &Uacute;ltimo Carro';

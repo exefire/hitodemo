@@ -15,161 +15,51 @@
 </head>
 
 <body>
-
-
 <div data-role="page" id="inicio">
-
-	<div data-role="header" data-position="fixed" data-theme="a">
-		<h1>Hito Demo</h1>
-	</div>
-
-	<div role="main" class="ui-content">
-  <div data-role="navbar" data-grid="b">
+  <div data-role="header" data-position="fixed" data-theme="a">
+    <h1>Hito Demo</h1>
+  </div>
+  <div role="main" class="ui-content">
+  
+    <h2>Ingresar</h2>
+    <div data-role="navbar" data-grid="a">
       <ul>
-          <li><a href="#lista">EOP</a></li>
-          <li><a href="#check2">M. Cinta</a></li>
-          <li><a href="#pagina2">Demo</a></li>
+        <li><a href="#check1">EOP</a></li>
+        <li><a href="#check2">M. Cinta</a></li>
       </ul>
-  </div>
-    <h2>Vuelos</h2>  
-    <ul data-role="listview" class="ui-listview" data-filter="true" data-filter-placeholder="Buscar vuelo..." data-inset="true" id="tabla_vuelos"></ul> 
-       
-	</div><!-- /content -->
-
-
-</div>
-
-<div data-role="page" id="lista">
-
-	<div data-role="header" data-position="fixed" data-theme="a">
-  	<a href="#inicio" data-icon="arrow-l">Volver</a>
-		<h1>Check Demo</h1>
- 
-	</div>
-
-	<div role="main" class="ui-content">
-		<ul id="lista1" data-role="listview" data-split-icon="plus" data-theme="a" data-split-theme="b" data-inset="true">
-     <li class="ui-field-contain">
-        <span id="vuelo_txt"></span>
-        <div id="campo_vuelo">
-        <label for="vuelo">Vuelo:</label>
-        <input name="vuelo" id="vuelo" type="tel" value="" data-clear-btn="true">
-        </div>
-    </li>
-    <li>
-    	<a href="">
-        <h3>Llegada Grupo</h3>
-        <p id="tiempo0">-</p>
-    	</a>
-    	<a href="" onClick="hit_now(0)" data-theme="a" data-icon="check" id="pulsador0">texto</a>
-    </li>
-    <li>
-    	<a href="">
-        <h3>Env&iacute;o 1<sup>er</sup> Carro</h3>
-        <p id="tiempo1">-</p>
-    	</a>
-    	<a href="" onClick="hit_now(1)" data-theme="a" data-icon="check" id="pulsador1">texto</a>
-    </li>
-    <li>
-    	<a href="">
-        <h3>Env&iacute;o &Uacute;ltimo Carro</h3>
-        <p id="tiempo2">-</p>
-    	</a>
-    	<a href="" onClick="hit_now(2)" data-theme="a" data-icon="check" id="pulsador2">texto</a>
-    </li>
-    <li>
-    	<a href="">
-        <h3>Llegada 1<sup>er</sup> Carro</h3>
-        <p id="tiempo3">-</p>
-    	</a>
-    	<a href="#" onClick="hit_now(3)" data-theme="a" data-icon="check" id="pulsador3">texto</a>
-    </li>
-    <li>
-    	<a href="#">
-        <h3>Llegada 2<sup>o</sup> Carro</h3>
-        <p id="tiempo4">-</p>
-    	</a>
-    	<a href="#" onClick="hit_now(4)" data-theme="a" data-icon="check" id="pulsador4">texto</a>
-    </li>
-  </ul>
-	</div>
-  
-  
-  <div data-role="footer" data-position="fixed" data-theme="b" style="padding:1%;">
-    <small id="estado">estado...</small>
-  </div>
-</div>
-
-
-
-
-<div data-role="page" id="pagina2">
-
-	<div data-role="header" data-position="fixed" data-theme="a">
-  	<a href="#inicio" data-icon="arrow-l">Volver</a>
-		<h1>Pagina 2</h1>
-	</div>
-
-	<div role="main" class="ui-content">
-  	<p>Elementos de ejemplo.</p>
-		<form>
-    <ul data-role="listview" data-inset="true">
-        <li class="ui-field-contain">
-            <label for="name2">Text Input:</label>
-            <input name="name2" id="name2" value="" data-clear-btn="true" type="text">
-        </li>
-        <li class="ui-field-contain">
-            <label for="textarea2">Textarea:</label>
-        <textarea cols="40" rows="8" name="textarea2" id="textarea2"></textarea>
-        </li>
-        <li class="ui-field-contain">
-            <label for="flip2">Flip switch:</label>
-            <select name="flip2" id="flip2" data-role="slider">
-                <option value="off">Off</option>
-                <option value="on">On</option>
-            </select>
-        </li>
-        <li class="ui-field-contain">
-            <label for="slider2">Slider:</label>
-            <input name="slider2" id="slider2" value="0" min="0" max="100" data-highlight="true" type="range">
-        </li>
-        <li class="ui-field-contain">
-            <label for="select-choice-1" class="select">Choose shipping method:</label>
-            <select name="select-choice-1" id="select-choice-1">
-                <option value="standard">Standard: 7 day</option>
-                <option value="rush">Rush: 3 days</option>
-                <option value="express">Express: next day</option>
-                <option value="overnight">Overnight</option>
-            </select>
-        </li>
-        <li class="ui-body ui-body-b">
-            <fieldset class="ui-grid-a">
-                    <div class="ui-block-a"><button type="submit" class="ui-btn ui-corner-all ui-btn-a">Cancel</button></div>
-                    <div class="ui-block-b"><button type="submit" class="ui-btn ui-corner-all ui-btn-a">Submit</button></div>
-            </fieldset>
-        </li>
+    </div>
+    <h2>Vuelos</h2>
+    <ul data-role="listview" class="ui-listview" data-filter="true" data-filter-placeholder="Buscar vuelo..." data-inset="true" id="tabla_vuelos">
     </ul>
-</form>
-	</div><!-- /content -->
-
-
+  </div>
 </div>
-
-
+<div data-role="page" id="check1">
+  <div data-role="header" data-position="fixed" data-theme="a"> <a href="#inicio" data-icon="arrow-l">Volver</a>
+    <h1>EOP</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <ul id="lista1" data-role="listview" data-split-icon="plus" data-theme="a" data-split-theme="b" data-inset="true">
+    </ul>
+  </div>
+  <div data-role="footer" data-position="fixed" data-theme="b" style="padding:1%;"> <small id="estado">estado...</small> </div>
+</div>
+<div data-role="page" id="check2">
+  <div data-role="header" data-position="fixed" data-theme="a"> <a href="#inicio" data-icon="arrow-l">Volver</a>
+    <h1>Monitor Cinta</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <ul id="lista2" data-role="listview" data-split-icon="plus" data-theme="a" data-split-theme="b" data-inset="true">
+    </ul>
+  </div>
+  <div data-role="footer" data-position="fixed" data-theme="b" style="padding:1%;"> <small id="estado">estado...</small> </div>
+</div>
 <div data-role="page" id="detalles">
-
-	<div data-role="header" data-position="fixed" data-theme="a">
-  	<a href="#inicio" data-icon="arrow-l">Volver</a>
-		<h1>Detalles</h1>
-	</div>
-
-	<div role="main" class="ui-content">
-	<div id="detalles_vuelo"></div>
-	</div><!-- /content -->
-
-
+  <div data-role="header" data-position="fixed" data-theme="a"> <a href="#inicio" data-icon="arrow-l">Volver</a>
+    <h1>Detalles</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <div id="detalles_vuelo"></div>
+  </div>
 </div>
-
-
 </body>
 </html>
