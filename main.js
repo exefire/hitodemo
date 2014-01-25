@@ -120,7 +120,10 @@ function hit_now(check,id){
 		if(typeof(vuelos[id_vuelo])=='undefined'){
 			// No existe el vuelo en el cache
 			vuelos[id_vuelo] = {};
+			vuelos[id_vuelo]['orden_vuelo'] = orden_vuelo;
+			orden_vuelo++;
 		}
+		console.log(vuelos);
 		if($("#campo_vuelo" + check).css('display')=='block'){
 			$("#campo_vuelo" + check).css('display','none');
 			$("#vuelo_txt" + check).html('<label>Vuelo</label><blockquote><b>'+id_vuelo+'</b></blockquote>');
@@ -148,12 +151,12 @@ function crea_tabla(){
 	var matriz = [];
 	// Borra el contenido
 	$("#tabla_vuelos").html('');
-	// Recorre el arreglo vuelos
+	// Recorre el arreglo vuelos - ordena
 	$.each(vuelos, function( key, value ) {
 		// Escribe en html cada linea
 		cadena = '<li><a href="#" onclick="ver_vuelo('+key+')">'+ value['vuelo'] + '</a></li>';
 		// guarda la linea en una matriz temporal.
-		matriz.push(cadena);
+		matriz[value['orden_vuelo']] = (cadena);
 	});
 	// Escribe la tabla al revés
 	for(i=matriz.length-1;i>-1;i--){
@@ -191,6 +194,15 @@ $("#check1").live('pagebeforeshow', function() {
 		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(1,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista1').listview('refresh');
+	
+  $("#vuelo1").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
 });
 
 $("#check2").live('pagebeforeshow', function() {
@@ -200,8 +212,18 @@ $("#check2").live('pagebeforeshow', function() {
 		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista2').listview('refresh');
+	
+  $("#vuelo2").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
 });
 
+var orden_vuelo = 1;
 var url_master = 'http://www.exefire.com/log/';
 var vuelos = {};
 var lista_tiempos = [];
