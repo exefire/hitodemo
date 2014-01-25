@@ -138,10 +138,11 @@ function hit_now(check,id){
 			$("#tiempo" + id).html('Validado: ' + now);
 			$("#pulsador" + id).attr("onclick","");
 			$("#pulsador" + id).buttonMarkup({ icon: "check" });
+			$("#pulsador" + id).css("background-color", "#D1E2FF");
 		}else{
 			$("#tiempo" + id).html('Inv&aacute;lido.');
 			$("#pulsador" + id).attr("onclick","");
-			$("#pulsador" + id).buttonMarkup({ icon: "check" });
+			$("#pulsador" + id).buttonMarkup({ icon: "forbidden" });
 		}
 		
 	}
