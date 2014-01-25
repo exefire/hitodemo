@@ -191,7 +191,7 @@ $("#check1").live('pagebeforeshow', function() {
 	lista_tiempos = [];
 	$('#lista1').html('<li class="ui-field-contain"><span id="vuelo_txt1"></span><div id="campo_vuelo1"><label for="vuelo1">Vuelo:</label><input name="vuelo1" id="vuelo1" type="tel" value="" data-clear-btn="true"></div></li>');
 	for(id=0;id<=2;id++){
-		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(1,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
+		$('#lista1').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(1,'+id+')" data-theme="a" data-icon="clock" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista1').listview('refresh');
 	
@@ -209,7 +209,7 @@ $("#check2").live('pagebeforeshow', function() {
 	lista_tiempos = [];
 	$('#lista2').html('<li class="ui-field-contain"><span id="vuelo_txt2"></span><div id="campo_vuelo2"><label for="vuelo2">Vuelo:</label><input name="vuelo2" id="vuelo2" type="tel" value="" data-clear-btn="true"></div></li>');
 	for(id=3;id<=4;id++){
-		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="check" id="pulsador'+id+'">texto</a></li>')
+		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="clock" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista2').listview('refresh');
 	
