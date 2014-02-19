@@ -8,6 +8,7 @@ function watchPosition() {
 	var options = { frequency: 1000 };
 	watchID = navigator.geolocation.watchPosition(posicion_ok, ErrorUbicacion, options);
 }
+
 function ErrorUbicacion(error) {
 	var texto = 'No se ha podido obtener la ubicación.';
 	msg(texto);
@@ -33,8 +34,26 @@ function onDeviceReady() {
 								'&uuid=' + device.uuid + 
 								'&version=' + device.version;
 	watchPosition();
+	envia_pendientes();
 }
 
+var segundos = 60;
+function envia_pendientes(){
+	// envia los vuelos pendientes por falta de conectividad
+	if(typeof(vuelos)!='undefined'){
+		$.each(vuelos, function(id_vuelo, matriz ) {
+			var sent = Object.size(vuelos[id_vuelo]);
+			if(vuelos[id_vuelo]['sent'] < sent ){
+				enviar(id_vuelo);
+				//console.log('Enviado vuelo: ' + id_vuelo);
+			}
+		});
+		//console.log('revisó los vuelos');
+	}else{
+		//console.log('aún no hay vuelos');
+	}
+	setTimeout(envia_pendientes, segundos*1000);
+}
 
 function msg(texto){
 	if(typeof(navigator.notification)=='undefined'){
@@ -44,15 +63,15 @@ function msg(texto){
 				texto,  				// message
 				alertDismissed, // callback
 				'Hito Demo',  // title
-				'Listo!'        // buttonName
+				'OK'        // buttonName
 		);
 	}
-	console.log(texto);
+	//console.log(texto);
 } 
 
 function alertDismissed() {
     // do something
-		console.log('ejecuto la funsión alertDismissed');
+		//console.log('ejecuto la funsión alertDismissed');
 }
 
 
@@ -78,7 +97,16 @@ function ahora(){
 	return datetime;
 }
 
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 
+// Get the size of an object
+//var size = Object.size(myArray);
 
 function enviar(id_vuelo){
 	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos[id_vuelo])+ '&lat=' + lat + '&lon=' + lon + datos_equipo;
@@ -90,6 +118,8 @@ function enviar(id_vuelo){
 		dataType: "jsonp",
 		async: true,
 		success: function (result) {
+			var sent = Object.size(vuelos[id_vuelo]);
+			vuelos[id_vuelo]['sent'] = sent;
 			//console.log(result);
 			//var nombre = result['nombre'];
 			//precio_despacho = result['precio1'];
@@ -121,6 +151,7 @@ function hit_now(check,id){
 			// No existe el vuelo en el cache
 			vuelos[id_vuelo] = {};
 			vuelos[id_vuelo]['orden_vuelo'] = orden_vuelo;
+			vuelos[id_vuelo]['sent'] = 0;
 			orden_vuelo++;
 		}
 		//console.log(vuelos);
