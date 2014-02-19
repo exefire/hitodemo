@@ -22,7 +22,7 @@
   <icon src="icons/android/icon-android-72.png" gap:platform="android" gap:density="hdpi" />
   <icon src="icons/android/icon-android-72.png" gap:platform="android" gap:density="xhdpi" />
   
-	<!--<gap:splash src="splash/splash.png" />-->
+	<gap:splash src="splash/splash.png" />
 	  
   <!-- NUEVO iOS -->
   
