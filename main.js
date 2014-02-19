@@ -85,8 +85,8 @@ function enviar(id_vuelo){
 	
 	$.ajax({
 		url: url,
-		beforeSend: function() { estado('enviando información...'); }, //Show spinner: $.mobile.showPageLoadingMsg();
-		complete: function() { estado('conectividad satisfactoria'); }, //Hide spinner: $.mobile.hidePageLoadingMsg();
+		beforeSend: function() { estado('ENVIANDO INFORMACION...'); }, //Show spinner: $.mobile.showPageLoadingMsg();
+		complete: function() { estado('CONECTIVIDAD SATISFACTORIA'); }, //Hide spinner: $.mobile.hidePageLoadingMsg();
 		dataType: "jsonp",
 		async: true,
 		success: function (result) {
@@ -106,7 +106,8 @@ function enviar(id_vuelo){
 }
 
 function estado(text){
-	$("#estado").text(text);
+	$("#estado1").text(text);
+	$("#estado2").text(text);
 }
 
 function hit_now(check,id){
