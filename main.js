@@ -188,6 +188,28 @@ function crea_tabla(){
 }
 
 function ver_vuelo(id){
+	var check = 2;
+	$.mobile.changePage("#check2");
+	// pone el nombre del vuelo
+	if($("#campo_vuelo" + check).css('display')=='block'){
+		$("#vuelo" + check).val(id);
+		$("#campo_vuelo" + check).css('display','none');
+		$("#vuelo_txt" + check).html('<label>Vuelo</label><blockquote><b>'+id+'</b></blockquote>');
+	}
+	for(hito_id=3;hito_id<=7;hito_id++){
+		if(typeof(vuelos[id]['hito' + hito_id])=='undefined'){
+			// Si el hito no existe, no hace nada
+		}else{
+			// Si el hito existe borra el boton y pone la hora existente
+			$("#tiempo" + hito_id).html('Validado: ' + vuelos[id]['hito' + hito_id]);
+			$("#pulsador" + hito_id).attr("onclick","");
+			$("#pulsador" + hito_id).buttonMarkup({ icon: "check" });
+			$("#pulsador" + hito_id).css("background-color", "#D1E2FF");
+		}
+	}
+}
+
+function ver_vuelo2(id){// funcion que muestra detalle sin nada más
 	//msg('Vuelo: ' + vuelos[id]['vuelo']);
 	$("#detalles_vuelo").html('');
 	var diff = diferencia_tiempo(vuelos[id][primero(id)]);
@@ -242,7 +264,7 @@ $("#check1").live('pagebeforeshow', function() {
 $("#check2").live('pagebeforeshow', function() {
 	lista_tiempos = [];
 	$('#lista2').html('<li class="ui-field-contain"><span id="vuelo_txt2"></span><div id="campo_vuelo2"><label for="vuelo2">Vuelo:</label><input name="vuelo2" id="vuelo2" type="tel" value="" data-clear-btn="true"></div></li>');
-	for(id=3;id<=4;id++){
+	for(id=3;id<=7;id++){
 		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="clock" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista2').listview('refresh');
@@ -269,5 +291,8 @@ lista_hits[1] = 'Env&iacute;o 1<sup>er</sup> Carro';
 lista_hits[2] = 'Env&iacute;o &Uacute;ltimo Carro';
 lista_hits[3] = 'Llegada 1<sup>er</sup> Carro';
 lista_hits[4] = 'Llegada 2<sup>o</sup> Carro';
+lista_hits[5] = 'Llegada 3<sup>o</sup> Carro';
+lista_hits[6] = 'Llegada 4<sup>o</sup> Carro';
+lista_hits[7] = 'Llegada 5<sup>o</sup> Carro';
 	
 
