@@ -80,9 +80,8 @@ function ahora(){
 
 
 
-function enviar(id,valor){
-	var vuelo = $("#vuelo").val();
-	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos)+ '&lat=' + lat + '&lon=' + lon + datos_equipo;
+function enviar(id_vuelo){
+	url = url_master + "?app=hitodemo&json=" + JSON.stringify(vuelos[id_vuelo])+ '&lat=' + lat + '&lon=' + lon + datos_equipo;
 	
 	$.ajax({
 		url: url,
@@ -123,7 +122,7 @@ function hit_now(check,id){
 			vuelos[id_vuelo]['orden_vuelo'] = orden_vuelo;
 			orden_vuelo++;
 		}
-		console.log(vuelos);
+		//console.log(vuelos);
 		if($("#campo_vuelo" + check).css('display')=='block'){
 			$("#campo_vuelo" + check).css('display','none');
 			$("#vuelo_txt" + check).html('<label>Vuelo</label><blockquote><b>'+id_vuelo+'</b></blockquote>');
@@ -133,7 +132,7 @@ function hit_now(check,id){
 			vuelos[id_vuelo]['vuelo'] = id_vuelo;
 			vuelos[id_vuelo]['hito' + id] = now;
 			lista_tiempos[id] = now;
-			enviar(id,now);
+			enviar(id_vuelo);
 			//console.log(lista_tiempos);
 			$("#tiempo" + id).html('Validado: ' + now);
 			$("#pulsador" + id).attr("onclick","");
@@ -148,16 +147,38 @@ function hit_now(check,id){
 	}
 }
 
+function diferencia_tiempo(end_time){
+	var ahora = new Date();
+	var valor = toDate(end_time);
+	var diff =  ahora-valor;
+	diff = Math.round(diff/(3600*1000));
+	return diff;
+}
+
+function toDate(valor){
+	//2014-02-05 14:43:15
+	tiempo = valor.split(" ");
+	var fecha = tiempo[0].split("-");
+	var tiempo =tiempo[1].split(":");
+	var fecha = new Date(fecha[0], fecha[1]-1, fecha[2], tiempo[0], tiempo[1], tiempo[2], 0);
+	return fecha;
+}
+
 function crea_tabla(){
 	var matriz = [];
 	// Borra el contenido
 	$("#tabla_vuelos").html('');
 	// Recorre el arreglo vuelos - ordena
 	$.each(vuelos, function( key, value ) {
-		// Escribe en html cada linea
-		cadena = '<li><a href="#" onclick="ver_vuelo('+key+')">'+ value['vuelo'] + '</a></li>';
-		// guarda la linea en una matriz temporal.
-		matriz[value['orden_vuelo']] = (cadena);
+		if(diferencia_tiempo(vuelos[key][primero(key)])>horas_historia){
+			// es más antiguo que x tiempo, lo borra
+			delete vuelos[key];
+		}else{
+			// Escribe en html cada linea
+			cadena = '<li><a href="#" onclick="ver_vuelo('+key+')">'+ value['vuelo'] + '</a></li>';
+			// guarda la linea en una matriz temporal.
+			matriz[value['orden_vuelo']] = (cadena);
+		}
 	});
 	// Escribe la tabla al revés
 	for(i=matriz.length-1;i>-1;i--){
@@ -169,6 +190,8 @@ function crea_tabla(){
 function ver_vuelo(id){
 	//msg('Vuelo: ' + vuelos[id]['vuelo']);
 	$("#detalles_vuelo").html('');
+	var diff = diferencia_tiempo(vuelos[id][primero(id)]);
+	//$("#detalles_vuelo").append("Tiempo: " + diff);
 	$("#detalles_vuelo").append('<h2>' + vuelos[id]['vuelo'] + '</h2>');
 	$.each(lista_hits, function( hito, value ) {
 		if(typeof(vuelos[id]['hito' + hito])=='undefined'){
@@ -180,6 +203,16 @@ function ver_vuelo(id){
 		}
 	});
 	$.mobile.changePage("#detalles");
+}
+
+function primero(id){
+	delete valor;
+	$.each(vuelos[id], function( clave, value ) {
+		if(typeof(valor)=='undefined' && clave.substr(0,4)=='hito'){
+			valor = clave;
+		}
+	});
+	return valor;
 }
 	
 
@@ -224,7 +257,9 @@ $("#check2").live('pagebeforeshow', function() {
    });
 });
 
+
 var orden_vuelo = 1;
+var horas_historia = 6;
 var url_master = 'http://www.exefire.com/log/';
 var vuelos = {};
 var lista_tiempos = [];
