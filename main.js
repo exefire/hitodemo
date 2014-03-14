@@ -228,7 +228,7 @@ function ver_vuelo(id){
 		$("#campo_vuelo" + check).css('display','none');
 		$("#vuelo_txt" + check).html('<label>Vuelo</label><blockquote><b>'+id+'</b></blockquote>');
 	}
-	for(hito_id=3;hito_id<=7;hito_id++){
+	for(hito_id=3;hito_id<=4;hito_id++){
 		if(typeof(vuelos[id]['hito' + hito_id])=='undefined'){
 			// Si el hito no existe, no hace nada
 		}else{
@@ -296,7 +296,7 @@ $("#check1").live('pagebeforeshow', function() {
 $("#check2").live('pagebeforeshow', function() {
 	lista_tiempos = [];
 	$('#lista2').html('<li class="ui-field-contain"><span id="vuelo_txt2"></span><div id="campo_vuelo2"><label for="vuelo2">Vuelo:</label><input name="vuelo2" id="vuelo2" type="tel" value="" data-clear-btn="true"></div></li>');
-	for(id=3;id<=7;id++){
+	for(id=3;id<=4;id++){
 		$('#lista2').append('<li><a href=""><h3>'+lista_hits[id]+'</h3><p id="tiempo'+id+'">-</p></a><a href="" onClick="hit_now(2,'+id+')" data-theme="a" data-icon="clock" id="pulsador'+id+'">texto</a></li>')
 	}
 	$('#lista2').listview('refresh');
@@ -321,10 +321,10 @@ var lista_hits = [];
 lista_hits[0] = 'Llegada Grupo';
 lista_hits[1] = 'Env&iacute;o 1<sup>er</sup> Carro';
 lista_hits[2] = 'Env&iacute;o &Uacute;ltimo Carro';
-lista_hits[3] = 'Llegada 1<sup>er</sup> Carro';
-lista_hits[4] = 'Llegada 2<sup>o</sup> Carro';
-lista_hits[5] = 'Llegada 3<sup>o</sup> Carro';
-lista_hits[6] = 'Llegada 4<sup>o</sup> Carro';
-lista_hits[7] = 'Llegada 5<sup>o</sup> Carro';
+lista_hits[3] = 'Primer Bag en Cinta';
+lista_hits[4] = '&Uacute;ltimo Bag en Cinta';
+//lista_hits[5] = 'Llegada 3<sup>o</sup> Carro';
+//lista_hits[6] = 'Llegada 4<sup>o</sup> Carro';
+//lista_hits[7] = 'Llegada 5<sup>o</sup> Carro';
 	
 
