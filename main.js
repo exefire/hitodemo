@@ -125,7 +125,7 @@ function enviar(id_vuelo){
 			//precio_despacho = result['precio1'];
 			//var texto = 'Sector: ' + nombre;
 			//msg(texto);
-			//$.mobile.changePage("#pagina03");
+			//$.mobile.changePage("#pagina03", { transition: "none"});
 			//$("#valor_despacho").html(FormatoDinero(precio_despacho));
 		},
 		error: function (request,error) {
@@ -221,7 +221,7 @@ function crea_tabla(){
 
 function ver_vuelo(id){
 	var check = 2;
-	$.mobile.changePage("#check2");
+	$.mobile.changePage("#check2", { transition: "none"});
 	// pone el nombre del vuelo
 	if($("#campo_vuelo" + check).css('display')=='block'){
 		$("#vuelo" + check).val(id);
@@ -256,7 +256,7 @@ function ver_vuelo2(id){// funcion que muestra detalle sin nada más
 			$("#detalles_vuelo").append('<blockquote><p>' + vuelos[id]['hito' + hito] + '</p></blockquote>');			
 		}
 	});
-	$.mobile.changePage("#detalles");
+	$.mobile.changePage("#detalles", { transition: "none"});
 }
 
 function primero(id){
